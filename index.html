@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Star Circle Loop Animation</title>
+  <style>
+    #star{
+      position:absolute;
+      left: 200px;
+      top: 150px;
+    }
+  </style>
+</head>
+
+<body>
+    <div id="star">
+      <img src="./star-icon.png" />
+    </div>
+    <script type="module">
+      import {Vec} from './Vec.js';
+
+          //rotating the star on the website
+
+      // point on the webpage that is the center of the orbit
+      const centre = new Vec(150, 150);
+      // distance that the star will be from center point in pixeles
+      const radius = 100;
+      //theta greek word that represents an angle 
+      let theta = 0;
+
+      const star = document.getElementById('star');
+
+      rotateStar();
+
+      function rotateStar(){
+        requestAnimationFrame(rotateStar);
+
+        theta += 0.05; // when its 0.05 it will take about 100 calls till theta will be 5, 2pi = full revolution = about 6.3, 6.3/0.05 = 125 -> at 60fps full revolution will take about 2s 
+        
+        const x = Math.cos(theta) * radius + centre.x; // we set x position using Math.cos, Math.cos returns a value between -1 an 1,  we want value between -radius and radius (not -1 an 1) so we * radius, then we + centre.x and that gives us the x position
+        const y = Math.sin(theta) * radius + centre.y;
+
+        star.style.left = `${x}px`;
+        star.style.top = `${y}px`;
+      }
+
+    </script>
+</body>
+
+</html>
